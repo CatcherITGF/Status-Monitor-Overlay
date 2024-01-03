@@ -909,6 +909,7 @@ struct FullSettings {
 struct MiniSettings {
 	uint8_t refreshRate;
 	bool realFrequencies;
+	bool realVolts;
 	size_t handheldFontSize;
 	size_t dockedFontSize;
 	uint16_t backgroundColor;
@@ -1000,6 +1001,11 @@ void GetConfigSettings(MiniSettings* settings) {
 		key = parsedData["mini"]["real_freqs"];
 		convertToUpper(key);
 		settings -> realFrequencies = !(key.compare("TRUE"));
+	}
+	if (parsedData["mini"].find("real_volts") != parsedData["mini"].end()) { 
+		key = parsedData["mini"]["real_volts"]; 
+		convertToUpper(key); 
+		settings -> realVolts = !(key.compare("TRUE")); 
 	}
 
 	long maxFontSize = 22;
