@@ -908,6 +908,7 @@ struct MiniSettings {
 struct MicroSettings {
 	uint8_t refreshRate;
 	bool realFrequencies;
+	bool realVolts;
 	size_t handheldFontSize;
 	size_t dockedFontSize;
 	uint8_t alignTo;
@@ -944,6 +945,7 @@ struct FpsGraphSettings {
 
 void GetConfigSettings(MiniSettings* settings) {
 	settings -> realFrequencies = false;
+	settings -> realVolts = true;
 	settings -> handheldFontSize = 15;
 	settings -> dockedFontSize = 15;
 	convertStrToRGBA4444("#1117", &(settings -> backgroundColor));
@@ -1065,13 +1067,14 @@ void GetConfigSettings(MiniSettings* settings) {
 
 void GetConfigSettings(MicroSettings* settings) {
 	settings -> realFrequencies = false;
+	settings -> realVolts = false; 
 	settings -> handheldFontSize = 18;
 	settings -> dockedFontSize = 18;
 	settings -> alignTo = 1;
 	convertStrToRGBA4444("#1117", &(settings -> backgroundColor));
 	convertStrToRGBA4444("#FCCF", &(settings -> catColor));
 	convertStrToRGBA4444("#FFFF", &(settings -> textColor));
-	settings -> show = "CPU+GPU+RAM+BRD+FAN+FPS";
+	settings -> show = "FPS+CPU+GPU+RAM+BRD+FAN+BAT";
 	settings -> showRAMLoad = true;
 	settings -> setPosBottom = false;
 	settings -> refreshRate = 1;
@@ -1110,6 +1113,11 @@ void GetConfigSettings(MicroSettings* settings) {
 		convertToUpper(key);
 		settings -> realFrequencies = !(key.compare("TRUE"));
 	}
+	if (parsedData["micro"].find("real_volts") != parsedData["micro"].end()) { 
+		key = parsedData["micro"]["real_volts"]; 
+		convertToUpper(key); 
+		settings -> realVolts = !(key.compare("TRUE")); 
+	} 
 	if (parsedData["micro"].find("text_align") != parsedData["micro"].end()) {
 		key = parsedData["micro"]["text_align"];
 		convertToUpper(key);
