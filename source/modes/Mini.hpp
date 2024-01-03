@@ -368,6 +368,9 @@ public:
 		}
 		char MINI_SOC_volt_c[7] = "";
 		snprintf(Rotation_SpeedLevel_c, sizeof Rotation_SpeedLevel_c, "%2.1f%%", Rotation_SpeedLevel_f * 100);
+		if (settings.realVolts) {
+			snprintf(MINI_SOC_volt_c, sizeof(MINI_SOC_volt_c), "%umV", realSOC_mV);
+		}
 		
 		if (settings.realVolts) {
 			snprintf(MINI_SOC_volt_c, sizeof(MINI_SOC_volt_c), "%umV", realSOC_mV);
