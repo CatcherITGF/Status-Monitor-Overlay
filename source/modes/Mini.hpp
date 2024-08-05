@@ -179,6 +179,8 @@ public:
 						strcat(print_text, "\n");
 					strcat(print_text, "FPS");
 					entry_count++;
+					entry_count++;
+					strcat(print_text, "\n");
 					flags |= (1 << 6);
 				}
 				else if (!key.compare("RES") && !(flags & 1 << 7) && GameRunning) {
